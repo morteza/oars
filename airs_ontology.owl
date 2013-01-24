@@ -1,0 +1,687 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:sqwrl="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns="http://www.owl-ontologies.com/AIRSOntology.owl#"
+    xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+  xml:base="http://www.owl-ontologies.com/AIRSOntology.owl">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://swrl.stanford.edu/ontologies/3.3/swrla.owl"/>
+    <owl:imports rdf:resource="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl"/>
+  </owl:Ontology>
+  <owl:Class rdf:ID="FormattedIntrusion"/>
+  <owl:Class rdf:ID="IntrusionResponseSystem"/>
+  <owl:Class rdf:ID="Network"/>
+  <owl:Class rdf:ID="SystemContext">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Context"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SystemComponent"/>
+  <owl:Class rdf:ID="NetworkContext">
+    <rdfs:subClassOf rdf:resource="#Context"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OptimumResponse">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Response"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Result"/>
+  <owl:Class rdf:ID="IntrusionDetectionSystem"/>
+  <owl:Class rdf:ID="Component"/>
+  <owl:ObjectProperty rdf:ID="optimumProactiveResponses">
+    <rdfs:range rdf:resource="#Response"/>
+    <rdfs:domain rdf:resource="#FormattedIntrusion"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="carriedOutResponses">
+    <rdfs:domain rdf:resource="#IntrusionResponseSystem"/>
+    <rdfs:range rdf:resource="#Response"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasResponseDependency">
+    <rdfs:range rdf:resource="#Response"/>
+    <rdfs:domain rdf:resource="#Response"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="optimumResponse">
+    <rdfs:range rdf:resource="#Response"/>
+    <rdfs:domain rdf:resource="#FormattedIntrusion"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="recommendedProactiveResponses">
+    <rdfs:range rdf:resource="#Response"/>
+    <rdfs:domain rdf:resource="#FormattedIntrusion"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="installedIDS">
+    <rdfs:range rdf:resource="#IntrusionDetectionSystem"/>
+    <rdfs:domain rdf:resource="#Network"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatedResult">
+    <rdfs:range rdf:resource="#Result"/>
+    <rdfs:domain rdf:resource="#IntrusionResponseSystem"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generate">
+    <rdfs:domain rdf:resource="#IntrusionDetectionSystem"/>
+    <rdfs:range rdf:resource="#FormattedIntrusion"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="protectedBy">
+    <rdfs:domain rdf:resource="#Network"/>
+    <rdfs:range rdf:resource="#IntrusionResponseSystem"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasContext">
+    <rdfs:range rdf:resource="#Context"/>
+    <rdfs:domain rdf:resource="#Network"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="locatedComponents">
+    <rdfs:range rdf:resource="#SystemComponent"/>
+    <rdfs:domain rdf:resource="#Network"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="recommendedResponses">
+    <rdfs:range rdf:resource="#Response"/>
+    <rdfs:domain rdf:resource="#FormattedIntrusion"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="receivedFormattedIntrusion">
+    <rdfs:range rdf:resource="#FormattedIntrusion"/>
+    <rdfs:domain rdf:resource="#IntrusionResponseSystem"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasResponseIncompatible">
+    <rdfs:domain rdf:resource="#SystemComponent"/>
+    <rdfs:range rdf:resource="#Response"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasResponseReport"/>
+  <owl:DatatypeProperty rdf:ID="intrusionSeverity"/>
+  <owl:DatatypeProperty rdf:ID="componentLevelOfImportance">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="orientedToIntrusionType"/>
+  <owl:DatatypeProperty rdf:ID="realintrusionImpact">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="responseCost">
+    <rdfs:domain rdf:resource="#Response"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="responseRelSeverity"/>
+  <owl:DatatypeProperty rdf:ID="responseImpact">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:domain rdf:resource="#Response"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="responseAbsSeverity"/>
+  <owl:DatatypeProperty rdf:ID="componentID">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="targetOfIntrusionID">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="reportIntrusionType"/>
+  <swrl:Imp rdf:ID="DamageIntrusionMetricRule">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:rest>
+          <swrl:AtomList>
+            <rdf:rest>
+              <swrl:AtomList>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                <rdf:first>
+                  <swrl:BuiltinAtom>
+                    <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThanOrEqual"/>
+                    <swrl:arguments>
+                      <rdf:List>
+                        <rdf:rest>
+                          <rdf:List>
+                            <rdf:first>
+                              <swrl:Variable rdf:ID="intimpact"/>
+                            </rdf:first>
+                            <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                          </rdf:List>
+                        </rdf:rest>
+                        <rdf:first>
+                          <swrl:Variable rdf:ID="resimpact1"/>
+                        </rdf:first>
+                      </rdf:List>
+                    </swrl:arguments>
+                  </swrl:BuiltinAtom>
+                </rdf:first>
+              </swrl:AtomList>
+            </rdf:rest>
+            <rdf:first>
+              <swrl:DatavaluedPropertyAtom>
+                <swrl:propertyPredicate rdf:resource="#responseImpact"/>
+                <swrl:argument1>
+                  <swrl:Variable rdf:ID="respon1"/>
+                </swrl:argument1>
+                <swrl:argument2 rdf:resource="#resimpact1"/>
+              </swrl:DatavaluedPropertyAtom>
+            </rdf:first>
+          </swrl:AtomList>
+        </rdf:rest>
+        <rdf:first>
+          <swrl:DatavaluedPropertyAtom>
+            <swrl:argument2 rdf:resource="#intimpact"/>
+            <swrl:argument1>
+              <swrl:Variable rdf:ID="intrusion"/>
+            </swrl:argument1>
+            <swrl:propertyPredicate rdf:resource="#realintrusionImpact"/>
+          </swrl:DatavaluedPropertyAtom>
+        </rdf:first>
+      </swrl:AtomList>
+    </swrl:body>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Damege Intrusion Metric Rule (4.2.1)</rdfs:comment>
+    <swrl:head>
+      <swrl:AtomList/>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="MinimumCostMetricRule">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:rest>
+          <swrl:AtomList>
+            <rdf:first>
+              <swrl:DatavaluedPropertyAtom>
+                <swrl:propertyPredicate rdf:resource="#componentID"/>
+                <swrl:argument2>
+                  <swrl:Variable rdf:ID="componentid"/>
+                </swrl:argument2>
+                <swrl:argument1>
+                  <swrl:Variable rdf:ID="component"/>
+                </swrl:argument1>
+              </swrl:DatavaluedPropertyAtom>
+            </rdf:first>
+            <rdf:rest>
+              <swrl:AtomList>
+                <rdf:rest>
+                  <swrl:AtomList>
+                    <rdf:rest>
+                      <swrl:AtomList>
+                        <rdf:first>
+                          <swrl:BuiltinAtom>
+                            <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#equal"/>
+                            <swrl:arguments>
+                              <rdf:List>
+                                <rdf:rest>
+                                  <rdf:List>
+                                    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                    >low</rdf:first>
+                                  </rdf:List>
+                                </rdf:rest>
+                                <rdf:first>
+                                  <swrl:Variable rdf:ID="cloi"/>
+                                </rdf:first>
+                              </rdf:List>
+                            </swrl:arguments>
+                          </swrl:BuiltinAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                          <swrl:AtomList>
+                            <rdf:first>
+                              <swrl:DatavaluedPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="#responseCost"/>
+                                <swrl:argument1 rdf:resource="#respon1"/>
+                                <swrl:argument2>
+                                  <swrl:Variable rdf:ID="respcost1"/>
+                                </swrl:argument2>
+                              </swrl:DatavaluedPropertyAtom>
+                            </rdf:first>
+                            <rdf:rest>
+                              <swrl:AtomList>
+                                <rdf:rest>
+                                  <swrl:AtomList>
+                                    <rdf:rest>
+                                      <swrl:AtomList>
+                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                        <rdf:first>
+                                          <swrl:BuiltinAtom>
+                                            <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThanOrEqual"/>
+                                            <swrl:arguments>
+                                              <rdf:List>
+                                                <rdf:rest>
+                                                  <rdf:List>
+                                                    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                    <rdf:first>
+                                                      <swrl:Variable rdf:ID="respcost2"/>
+                                                    </rdf:first>
+                                                  </rdf:List>
+                                                </rdf:rest>
+                                                <rdf:first rdf:resource="#respcost1"/>
+                                              </rdf:List>
+                                            </swrl:arguments>
+                                          </swrl:BuiltinAtom>
+                                        </rdf:first>
+                                      </swrl:AtomList>
+                                    </rdf:rest>
+                                    <rdf:first>
+                                      <swrl:BuiltinAtom>
+                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThanOrEqual"/>
+                                        <swrl:arguments>
+                                          <rdf:List>
+                                            <rdf:rest>
+                                              <rdf:List>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                <rdf:first rdf:resource="#respcost2"/>
+                                              </rdf:List>
+                                            </rdf:rest>
+                                            <rdf:first rdf:resource="#respcost1"/>
+                                          </rdf:List>
+                                        </swrl:arguments>
+                                      </swrl:BuiltinAtom>
+                                    </rdf:first>
+                                  </swrl:AtomList>
+                                </rdf:rest>
+                                <rdf:first>
+                                  <swrl:DatavaluedPropertyAtom>
+                                    <swrl:propertyPredicate rdf:resource="#responseCost"/>
+                                    <swrl:argument2 rdf:resource="#respcost2"/>
+                                    <swrl:argument1>
+                                      <swrl:Variable rdf:ID="respon2"/>
+                                    </swrl:argument1>
+                                  </swrl:DatavaluedPropertyAtom>
+                                </rdf:first>
+                              </swrl:AtomList>
+                            </rdf:rest>
+                          </swrl:AtomList>
+                        </rdf:rest>
+                      </swrl:AtomList>
+                    </rdf:rest>
+                    <rdf:first>
+                      <swrl:DatavaluedPropertyAtom>
+                        <swrl:argument1 rdf:resource="#component"/>
+                        <swrl:argument2 rdf:resource="#cloi"/>
+                        <swrl:propertyPredicate rdf:resource="#componentLevelOfImportance"/>
+                      </swrl:DatavaluedPropertyAtom>
+                    </rdf:first>
+                  </swrl:AtomList>
+                </rdf:rest>
+                <rdf:first>
+                  <swrl:BuiltinAtom>
+                    <swrl:arguments>
+                      <rdf:List>
+                        <rdf:first>
+                          <swrl:Variable rdf:ID="targetID"/>
+                        </rdf:first>
+                        <rdf:rest>
+                          <rdf:List>
+                            <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            <rdf:first rdf:resource="#componentid"/>
+                          </rdf:List>
+                        </rdf:rest>
+                      </rdf:List>
+                    </swrl:arguments>
+                    <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#equal"/>
+                  </swrl:BuiltinAtom>
+                </rdf:first>
+              </swrl:AtomList>
+            </rdf:rest>
+          </swrl:AtomList>
+        </rdf:rest>
+        <rdf:first>
+          <swrl:DatavaluedPropertyAtom>
+            <swrl:argument2 rdf:resource="#targetID"/>
+            <swrl:argument1 rdf:resource="#intrusion"/>
+            <swrl:propertyPredicate rdf:resource="#targetOfIntrusionID"/>
+          </swrl:DatavaluedPropertyAtom>
+        </rdf:first>
+      </swrl:AtomList>
+    </swrl:body>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Minimum Cost Metric (4.2.2)</rdfs:comment>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        <rdf:first>
+          <swrl:IndividualPropertyAtom>
+            <swrl:propertyPredicate rdf:resource="#optimumResponse"/>
+            <swrl:argument2 rdf:resource="#respon1"/>
+            <swrl:argument1 rdf:resource="#intrusion"/>
+          </swrl:IndividualPropertyAtom>
+        </rdf:first>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <rdf:Description rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#hasRuleGroup">
+    <rdfs:range rdf:resource="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#Entity"/>
+  </rdf:Description>
+  <swrl:Imp rdf:ID="HighestSeverityAndHighestEfficiencyMetricRule">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+          <swrl:DatavaluedPropertyAtom>
+            <swrl:propertyPredicate rdf:resource="#targetOfIntrusionID"/>
+            <swrl:argument1 rdf:resource="#intrusion"/>
+            <swrl:argument2 rdf:resource="#targetID"/>
+          </swrl:DatavaluedPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+          <swrl:AtomList>
+            <rdf:rest>
+              <swrl:AtomList>
+                <rdf:first>
+                  <swrl:BuiltinAtom>
+                    <swrl:arguments>
+                      <rdf:List>
+                        <rdf:rest>
+                          <rdf:List>
+                            <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            <rdf:first rdf:resource="#componentid"/>
+                          </rdf:List>
+                        </rdf:rest>
+                        <rdf:first rdf:resource="#targetID"/>
+                      </rdf:List>
+                    </swrl:arguments>
+                    <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#equal"/>
+                  </swrl:BuiltinAtom>
+                </rdf:first>
+                <rdf:rest>
+                  <swrl:AtomList>
+                    <rdf:first>
+                      <swrl:DatavaluedPropertyAtom>
+                        <swrl:argument2 rdf:resource="#cloi"/>
+                        <swrl:argument1 rdf:resource="#component"/>
+                        <swrl:propertyPredicate rdf:resource="#componentLevelOfImportance"/>
+                      </swrl:DatavaluedPropertyAtom>
+                    </rdf:first>
+                    <rdf:rest>
+                      <swrl:AtomList>
+                        <rdf:rest>
+                          <swrl:AtomList>
+                            <rdf:first>
+                              <swrl:DatavaluedPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="#intrusionSeverity"/>
+                                <swrl:argument2>
+                                  <swrl:Variable rdf:ID="intseverity"/>
+                                </swrl:argument2>
+                                <swrl:argument1 rdf:resource="#intrusion"/>
+                              </swrl:DatavaluedPropertyAtom>
+                            </rdf:first>
+                            <rdf:rest>
+                              <swrl:AtomList>
+                                <rdf:rest>
+                                  <swrl:AtomList>
+                                    <rdf:first>
+                                      <swrl:DatavaluedPropertyAtom>
+                                        <swrl:argument1 rdf:resource="#respon2"/>
+                                        <swrl:propertyPredicate rdf:resource="#responseAbsSeverity"/>
+                                        <swrl:argument2>
+                                          <swrl:Variable rdf:ID="respabsseverity2"/>
+                                        </swrl:argument2>
+                                      </swrl:DatavaluedPropertyAtom>
+                                    </rdf:first>
+                                    <rdf:rest>
+                                      <swrl:AtomList>
+                                        <rdf:first>
+                                          <swrl:BuiltinAtom>
+                                            <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual"/>
+                                            <swrl:arguments>
+                                              <rdf:List>
+                                                <rdf:first>
+                                                  <swrl:Variable rdf:ID="respabsseverity1"/>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                  <rdf:List>
+                                                    <rdf:first rdf:resource="#intseverity"/>
+                                                    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                  </rdf:List>
+                                                </rdf:rest>
+                                              </rdf:List>
+                                            </swrl:arguments>
+                                          </swrl:BuiltinAtom>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                          <swrl:AtomList>
+                                            <rdf:first>
+                                              <swrl:BuiltinAtom>
+                                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual"/>
+                                                <swrl:arguments>
+                                                  <rdf:List>
+                                                    <rdf:rest>
+                                                      <rdf:List>
+                                                        <rdf:first rdf:resource="#intseverity"/>
+                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                      </rdf:List>
+                                                    </rdf:rest>
+                                                    <rdf:first rdf:resource="#respabsseverity2"/>
+                                                  </rdf:List>
+                                                </swrl:arguments>
+                                              </swrl:BuiltinAtom>
+                                            </rdf:first>
+                                            <rdf:rest>
+                                              <swrl:AtomList>
+                                                <rdf:first>
+                                                  <swrl:IndividualPropertyAtom>
+                                                    <swrl:argument1 rdf:resource="#respon1"/>
+                                                    <swrl:argument2>
+                                                      <swrl:Variable rdf:ID="presreport1"/>
+                                                    </swrl:argument2>
+                                                    <swrl:propertyPredicate rdf:resource="#hasResponseReport"/>
+                                                  </swrl:IndividualPropertyAtom>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                  <swrl:AtomList>
+                                                    <rdf:first>
+                                                      <swrl:DatavaluedPropertyAtom>
+                                                        <swrl:propertyPredicate rdf:resource="#reportIntrusionType"/>
+                                                        <swrl:argument2>
+                                                          <swrl:Variable rdf:ID="rit1"/>
+                                                        </swrl:argument2>
+                                                        <swrl:argument1 rdf:resource="#presreport1"/>
+                                                      </swrl:DatavaluedPropertyAtom>
+                                                    </rdf:first>
+                                                    <rdf:rest>
+                                                      <swrl:AtomList>
+                                                        <rdf:rest>
+                                                          <swrl:AtomList>
+                                                            <rdf:first>
+                                                              <swrl:BuiltinAtom>
+    <swrl:arguments>
+      <rdf:List>
+        <rdf:rest>
+          <rdf:List>
+            <rdf:first>
+              <swrl:Variable rdf:ID="oit1"/>
+            </rdf:first>
+            <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+          </rdf:List>
+        </rdf:rest>
+        <rdf:first rdf:resource="#rit1"/>
+      </rdf:List>
+    </swrl:arguments>
+    <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#equal"/>
+                                                              </swrl:BuiltinAtom>
+                                                            </rdf:first>
+                                                            <rdf:rest>
+                                                              <swrl:AtomList>
+    <rdf:first>
+      <swrl:IndividualPropertyAtom>
+        <swrl:propertyPredicate rdf:resource="#hasResponseReport"/>
+        <swrl:argument1 rdf:resource="#respon2"/>
+        <swrl:argument2>
+          <swrl:Variable rdf:ID="presreport2"/>
+        </swrl:argument2>
+      </swrl:IndividualPropertyAtom>
+    </rdf:first>
+    <rdf:rest>
+      <swrl:AtomList>
+        <rdf:rest>
+          <swrl:AtomList>
+            <rdf:first>
+              <swrl:DatavaluedPropertyAtom>
+                <swrl:argument1 rdf:resource="#respon2"/>
+                <swrl:propertyPredicate rdf:resource="#orientedToIntrusionType"/>
+                <swrl:argument2>
+                  <swrl:Variable rdf:ID="oit2"/>
+                </swrl:argument2>
+              </swrl:DatavaluedPropertyAtom>
+            </rdf:first>
+            <rdf:rest>
+              <swrl:AtomList>
+                <rdf:first>
+                  <swrl:BuiltinAtom>
+                    <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#equal"/>
+                    <swrl:arguments>
+                      <rdf:List>
+                        <rdf:rest>
+                          <rdf:List>
+                            <rdf:first rdf:resource="#oit2"/>
+                            <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                          </rdf:List>
+                        </rdf:rest>
+                        <rdf:first>
+                          <swrl:Variable rdf:ID="rit2"/>
+                        </rdf:first>
+                      </rdf:List>
+                    </swrl:arguments>
+                  </swrl:BuiltinAtom>
+                </rdf:first>
+                <rdf:rest>
+                  <swrl:AtomList>
+                    <rdf:first>
+                      <swrl:DatavaluedPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="#responseRelSeverity"/>
+                        <swrl:argument2>
+                          <swrl:Variable rdf:ID="rrsev1"/>
+                        </swrl:argument2>
+                        <swrl:argument1 rdf:resource="#presreport1"/>
+                      </swrl:DatavaluedPropertyAtom>
+                    </rdf:first>
+                    <rdf:rest>
+                      <swrl:AtomList>
+                        <rdf:rest>
+                          <swrl:AtomList>
+                            <rdf:first>
+                              <swrl:BuiltinAtom>
+                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThan"/>
+                                <swrl:arguments>
+                                  <rdf:List>
+                                    <rdf:rest>
+                                      <rdf:List>
+                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                        <rdf:first>
+                                          <swrl:Variable rdf:ID="rrsev2"/>
+                                        </rdf:first>
+                                      </rdf:List>
+                                    </rdf:rest>
+                                    <rdf:first rdf:resource="#rrsev1"/>
+                                  </rdf:List>
+                                </swrl:arguments>
+                              </swrl:BuiltinAtom>
+                            </rdf:first>
+                            <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                          </swrl:AtomList>
+                        </rdf:rest>
+                        <rdf:first>
+                          <swrl:DatavaluedPropertyAtom>
+                            <swrl:propertyPredicate rdf:resource="#responseRelSeverity"/>
+                            <swrl:argument1 rdf:resource="#presreport2"/>
+                            <swrl:argument2 rdf:resource="#rrsev2"/>
+                          </swrl:DatavaluedPropertyAtom>
+                        </rdf:first>
+                      </swrl:AtomList>
+                    </rdf:rest>
+                  </swrl:AtomList>
+                </rdf:rest>
+              </swrl:AtomList>
+            </rdf:rest>
+          </swrl:AtomList>
+        </rdf:rest>
+        <rdf:first>
+          <swrl:DatavaluedPropertyAtom>
+            <swrl:propertyPredicate rdf:resource="#reportIntrusionType"/>
+            <swrl:argument2 rdf:resource="#rit2"/>
+            <swrl:argument1 rdf:resource="#presreport2"/>
+          </swrl:DatavaluedPropertyAtom>
+        </rdf:first>
+      </swrl:AtomList>
+    </rdf:rest>                                               </swrl:AtomList>
+                                                            </rdf:rest>
+                                                          </swrl:AtomList>
+                                                        </rdf:rest>
+                                                        <rdf:first>
+                                                          <swrl:DatavaluedPropertyAtom>
+                                                            <swrl:argument2 rdf:resource="#oit1"/>
+                                                            <swrl:argument1 rdf:resource="#respon1"/>
+                                                            <swrl:propertyPredicate rdf:resource="#orientedToIntrusionType"/>
+                                                          </swrl:DatavaluedPropertyAtom>
+                                                        </rdf:first>
+                                                      </swrl:AtomList>
+                                                    </rdf:rest>
+                                                  </swrl:AtomList>
+                                                </rdf:rest>
+                                              </swrl:AtomList>
+                                            </rdf:rest>
+                                          </swrl:AtomList>
+                                        </rdf:rest>
+                                      </swrl:AtomList>
+                                    </rdf:rest>
+                                  </swrl:AtomList>
+                                </rdf:rest>
+                                <rdf:first>
+                                  <swrl:DatavaluedPropertyAtom>
+                                    <swrl:argument1 rdf:resource="#respon1"/>
+                                    <swrl:propertyPredicate rdf:resource="#responseAbsSeverity"/>
+                                    <swrl:argument2 rdf:resource="#respabsseverity1"/>
+                                  </swrl:DatavaluedPropertyAtom>
+                                </rdf:first>
+                              </swrl:AtomList>
+                            </rdf:rest>
+                          </swrl:AtomList>
+                        </rdf:rest>
+                        <rdf:first>
+                          <swrl:BuiltinAtom>
+                            <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#equal"/>
+                            <swrl:arguments>
+                              <rdf:List>
+                                <rdf:rest>
+                                  <rdf:List>
+                                    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                    >high</rdf:first>
+                                    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                  </rdf:List>
+                                </rdf:rest>
+                                <rdf:first rdf:resource="#cloi"/>
+                              </rdf:List>
+                            </swrl:arguments>
+                          </swrl:BuiltinAtom>
+                        </rdf:first>
+                      </swrl:AtomList>
+                    </rdf:rest>
+                  </swrl:AtomList>
+                </rdf:rest>
+              </swrl:AtomList>
+            </rdf:rest>
+            <rdf:first>
+              <swrl:DatavaluedPropertyAtom>
+                <swrl:propertyPredicate rdf:resource="#componentID"/>
+                <swrl:argument2 rdf:resource="#componentid"/>
+                <swrl:argument1 rdf:resource="#component"/>
+              </swrl:DatavaluedPropertyAtom>
+            </rdf:first>
+          </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        <rdf:first>
+          <swrl:IndividualPropertyAtom>
+            <swrl:propertyPredicate rdf:resource="#optimumResponse"/>
+            <swrl:argument1 rdf:resource="#intrusion"/>
+            <swrl:argument2 rdf:resource="#respon1"/>
+          </swrl:IndividualPropertyAtom>
+        </rdf:first>
+      </swrl:AtomList>
+    </swrl:head>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Highest Severity And Highest Efficiency Metric Rule (4.2.3)</rdfs:comment>
+  </swrl:Imp>
+  <rdf:Description rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleGroupEnabled">
+    <rdfs:domain rdf:resource="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#Entity"/>
+  </rdf:Description>
+  <swrl:Variable rdf:ID="x"/>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.5, Build 649)  http://protege.stanford.edu -->
