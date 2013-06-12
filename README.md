@@ -1,7 +1,7 @@
 OArs
 ====
 
-Ontology-based Automated Response System. Private and copyrighted materials are avilable at: http://repo.fuschia.us/oars
+Ontology-based Automated Response System.
 
 References
 ====
